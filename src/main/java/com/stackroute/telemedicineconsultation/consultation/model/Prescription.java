@@ -1,11 +1,10 @@
 package com.stackroute.telemedicineconsultation.consultation.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-
+@Entity
 public class Prescription {
     //declare variables for prescription details of the patient as  {
     //      "medication": "Ibuprofen",
@@ -22,6 +21,10 @@ public class Prescription {
     private String frequency;
     private String startDate;
     private String endDate;
+
+    // Add a OneToOne mapping to the Consultation entity
+    @OneToOne(mappedBy = "prescription")
+    private Consultation consultation;
 
     public Prescription() {
     }

@@ -21,7 +21,6 @@ public class ConsultationServiceImpl implements ConsultationService{
     @Override
     public Consultation scheduleMedicalConsultation(Consultation consultation) throws ConsultationSlotNotAvailableException {
         consultation.setStatus("Scheduled");
-        consultation.setPrescriptions(new Prescription[0]);
         if(consultationRepo.findByDoctorId(consultation.getDoctorId()) != null &&
                 consultationRepo.findByScheduledDateTime(consultation.getScheduledDateTime()) != null){
             throw new ConsultationSlotNotAvailableException("Consultation slot not available. Please choose another slot.");
@@ -71,7 +70,7 @@ public class ConsultationServiceImpl implements ConsultationService{
             existingConsultation.setScheduledDateTime(consultation.getScheduledDateTime());
             existingConsultation.setDoctorId(consultation.getDoctorId());
             existingConsultation.setPatientId(consultation.getPatientId());
-            existingConsultation.setPrescriptions(consultation.getPrescriptions());
+            existingConsultation.setPrescription(consultation.getPrescription());
             existingConsultation.setStatus(consultation.getStatus());
             existingConsultation.setDiagnosis(consultation.getDiagnosis());
             Consultation updatedConsultation = consultationRepo.save(existingConsultation);

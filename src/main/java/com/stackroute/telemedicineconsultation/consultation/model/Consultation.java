@@ -1,9 +1,7 @@
 package com.stackroute.telemedicineconsultation.consultation.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Consultation {
@@ -22,16 +20,20 @@ public class Consultation {
     private int id;
     private int patientId;
     private int doctorId;
-    private String scheduledDateTime;
+    private LocalDateTime scheduledDateTime;
     private int duration;
     private String status;
     private String diagnosis;
-    private Prescription[] prescription;
+
+    // Add a OneToOne mapping to the Prescription entity
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prescription_id")
+    private Prescription prescription;
 
     public Consultation() {
     }
 
-    public Consultation(int id, int patientId, int doctorId, String scheduledDateTime, int duration, String status, String diagnosis, Prescription[] prescription) {
+    public Consultation(int id, int patientId, int doctorId, LocalDateTime scheduledDateTime, int duration, String status, String diagnosis, Prescription prescription) {
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -54,7 +56,7 @@ public class Consultation {
         return doctorId;
     }
 
-    public String getScheduledDateTime() {
+    public LocalDateTime getScheduledDateTime() {
         return scheduledDateTime;
     }
 
@@ -70,7 +72,7 @@ public class Consultation {
         return diagnosis;
     }
 
-    public Prescription[] getPrescriptions() {
+    public Prescription getPrescription() {
         return prescription;
     }
 
@@ -86,7 +88,7 @@ public class Consultation {
         this.doctorId = doctorId;
     }
 
-    public void setScheduledDateTime(String scheduledDateTime) {
+    public void setScheduledDateTime(LocalDateTime scheduledDateTime) {
         this.scheduledDateTime = scheduledDateTime;
     }
 
@@ -102,7 +104,7 @@ public class Consultation {
         this.diagnosis = diagnosis;
     }
 
-    public void setPrescriptions(Prescription[] prescription) {
+    public void setPrescription(Prescription prescription) {
         this.prescription = prescription;
     }
 
@@ -117,7 +119,7 @@ public class Consultation {
                 ", duration=" + duration +
                 ", status='" + status + '\'' +
                 ", diagnosis='" + diagnosis + '\'' +
-                ", prescription=" + prescription +
+                ", prescriptions=" + prescription +
                 '}';
     }
 
