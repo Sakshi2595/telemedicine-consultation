@@ -102,6 +102,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>telemedicine-consultation-image</finalName>
 	</build>
 	<repositories>
 		<repository>
