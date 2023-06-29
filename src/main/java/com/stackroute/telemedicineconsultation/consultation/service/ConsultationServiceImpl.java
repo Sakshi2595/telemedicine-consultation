@@ -21,6 +21,8 @@ public class ConsultationServiceImpl implements ConsultationService{
     @Override
     public Consultation scheduleMedicalConsultation(Consultation consultation) throws ConsultationSlotNotAvailableException {
         consultation.setStatus("Scheduled");
+        Prescription prescription = new Prescription();
+        consultation.setPrescription(prescription);
         if(consultationRepo.findByDoctorId(consultation.getDoctorId()) != null &&
                 consultationRepo.findByScheduledDateTime(consultation.getScheduledDateTime()) != null){
             throw new ConsultationSlotNotAvailableException("Consultation slot not available. Please choose another slot.");
@@ -32,7 +34,9 @@ public class ConsultationServiceImpl implements ConsultationService{
     //create getMedicalConsultation method which takes consultationId as input and returns the consultation object
 //    @Override
 //    public Consultation getMedicalConsultation(int consultationId) {
+//        logger.info("Getting consultation with id: " + consultationId);
 //        Consultation cons = consultationRepo.findById(consultationId).get();
+//        logger.info("Found consultation with id: " + consultationId);
 //        return cons;
 //    }
     @Override

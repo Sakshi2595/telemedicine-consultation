@@ -1,8 +1,7 @@
 package com.stackroute.telemedicineconsultation.consultation.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 public class Prescription {
